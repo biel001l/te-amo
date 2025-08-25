@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Heart - Para Kemilly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Efeito de partículas avançado */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff4d6d, #ff69b4, #ff85c0);
+      opacity: 0.7;
+      animation: floatParticle 20s infinite ease-in-out;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      animation: sparkleTwinkle 3s infinite ease-in-out;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 24px;
+      color: #ff4d6d;
+      animation: floatHeart 8s infinite ease-in-out;
+      text-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    }
+
+    /* Container principal */
+    .container {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    /* Cabeçalho romântico */
+    .header {
+      margin-bottom: 40px;
+      animation: fadeInDown 2s ease-out;
+    }
+
+    .header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 4rem;
+      background: linear-gradient(45deg, #ff4d6d, #ff69b4, #ff85c0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    /* Mensagem principal */
+    .love-message {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 105, 180, 0.3);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px 0;
+      max-width: 600px;
+      animation: slideInUp 2s ease-out;
+      box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1);
+    }
+
+    .love-message .text {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #fff, #ffe4e6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .love-message .quote {
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e2e2e2;
+    }
+
+    /* Coração pulsante */
+    .heart-container {
+      margin: 40px 0;
+      animation: heartbeat 2s infinite ease-in-out;
+    }
+
+    .heart-main {
+      font-size: 8rem;
+      color: #ff4d6d;
+      text-shadow: 0 0 50px rgba(255, 77, 109, 0.6);
+      filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.4));
+    }
+
+    /* Botão de surpresa */
+    .surprise-section {
+      margin: 30px 0;
+      animation: fadeInUp 2s ease-out;
+    }
+
+    .surprise-btn {
+      background: linear-gradient(45deg, #ff4d6d, #ff69b4);
+      border: none;
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
+      font-weight: 500;
+    }
+
+    .surprise-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(255, 105, 180, 0.5);
+    }
+
+    .surprise-btn i {
+      margin-right: 8px;
+    }
+
+    /* Mensagem secreta */
+    .secret-message {
+      display: none;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 105, 180, 0.4);
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 25px;
+      max-width: 500px;
+      animation: messageReveal 1.5s ease-out forwards;
+    }
+
+    .secret-message p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #ffe4e6;
+      font-weight: 300;
+    }
+
+    .secret-message .signature {
+      text-align: right;
+      margin-top: 15px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #ff69b4;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 50px;
+      animation: fadeIn 3s ease-out;
+    }
+
+    .footer p {
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: #ffe4e6;
+    }
+
+    .footer .name {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff4d6d, #ff69b4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-left: 10px;
+    }
+
+    /* Animações */
+    @keyframes floatParticle {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+      }
+      25% {
+        transform: translate(100px, 150px) rotate(90deg);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translate(-80px, 200px) rotate(180deg);
+        opacity: 0.5;
+      }
+      75% {
+        transform: translate(120px, -100px) rotate(270deg);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes sparkleTwinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    @keyframes floatHeart {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-20px) rotate(10deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.4));
+      }
+      50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 40px rgba(255, 105, 180, 0.8));
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes messageReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 3rem;
+      }
+      
+      .love-message .text {
+        font-size: 2rem;
+      }
+      
+      .heart-main {
+        font-size: 6rem;
+      }
+      
+      .header p,
+      .love-message .quote,
+      .footer p {
+        font-size: 1rem;
+      }
+      
+      .secret-message p {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .love-message {
+        padding: 20px;
+      }
+      
+      .love-message .text {
+        font-size: 1.8rem;
+      }
+      
+      .heart-main {
+        font-size: 5rem;
+      }
+      
+      .surprise-btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas e efeitos de fundo -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="container">
+    <div class="header">
+      <h1>Para o Amor da Minha Vida</h1>
+      <p>Cada momento contigo é um conto de fadas</p>
+    </div>
+
+    <div class="love-message">
+      <div class="text">Te Amo Eternamente</div>
+      <div class="quote">
+        "Estar com você é estar nas asas do amor, passeando pelo mundo sem que haja qualquer limite. 
+        Cada sorriso seu é uma constelação no meu céu particular."
+      </div>
+    </div>
+
+    <div class="heart-container">
+      <div class="heart-main">❤</div>
+    </div>
+
+    <div class="surprise-section">
+      <button class="surprise-btn" onclick="revealSecretMessage()">
+        <i class="fas fa-gift"></i>Clique para uma surpresa especial
+      </button>
+      <div class="secret-message" id="secretMessage">
+        <p>
+          Kemilly, você é o meu maior tesouro. Cada dia ao seu lado é uma bênção, 
+          cada momento uma memória preciosa. Seu sorriso ilumina meus dias, sua voz 
+          acalma minha alma, seu amor preenche meu coração. Obrigado por ser você!
+        </p>
+        <div class="signature">Com todo meu amor</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Eu te amo, <span class="name">Kemilly</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Criar partículas avançadas
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      
+      // Criar partículas circulares
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        const size = Math.random() * 20 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDuration = `${15 + Math.random() * 15}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        particlesContainer.appendChild(particle);
+      }
+      
+      // Criar brilhos
+      for (let i = 0; i < 100; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.top = `${Math.random() * 100}%`;
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.animationDuration = `${2 + Math.random() * 3}s`;
+        sparkle.style.animationDelay = `${Math.random() * 2}s`;
+        particlesContainer.appendChild(sparkle);
+      }
+      
+      // Criar corações flutuantes
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.innerHTML = '❤';
+        heart.style.top = `${Math.random() * 100}%`;
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.animationDuration = `${6 + Math.random() * 6}s`;
+        heart.style.animationDelay = `${Math.random() * 4}s`;
+        heart.style.fontSize = `${16 + Math.random() * 20}px`;
+        particlesContainer.appendChild(heart);
+      }
+    }
+
+    // Revelar mensagem secreta
+    function revealSecretMessage() {
+      const message = document.getElementById('secretMessage');
+      message.style.display = 'block';
+      
+      // Efeito adicional ao revelar mensagem
+      document.querySelector('.surprise-btn').style.background = 'linear-gradient(45deg, #ff69b4, #ff85c0)';
+      document.querySelector('.surprise-btn').innerHTML = '<i class="fas fa-heart"></i>Mensagem Revelada!';
+    }
+
+    // Efeito de digitação para a mensagem principal
+    function typeWriterEffect() {
+      const quote = document.querySelector('.quote');
+      const originalText = quote.textContent;
+      quote.textContent = '';
+      
+      let i = 0;
+      const speed = 40;
+      
+      function typeWriter() {
+        if (i < originalText.length) {
+          quote.textContent += originalText.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+      
+      setTimeout(typeWriter, 1000);
+    }
+
+    // Inicializar efeitos quando a página carregar
+    window.addEventListener('load', function() {
+      createParticles();
+      setTimeout(typeWriterEffect, 500);
+      
+      // Efeito de coração pulsante contínuo
+      setInterval(() => {
+        const heart = document.querySelector('.heart-main');
+        heart.style.animation = 'none';
+        setTimeout(() => {
+          heart.style.animation = 'heartbeat 2s infinite ease-in-out';
+        }, 10);
+      }, 2000);
+    });
+
+    // Efeito de parallax suave no scroll
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const particles = document.getElementById('particles');
+      particles.style.transform = `translateY(${scrolled * 0.5}px)`;
+    });
+  </script>
+</body>
+</html>
